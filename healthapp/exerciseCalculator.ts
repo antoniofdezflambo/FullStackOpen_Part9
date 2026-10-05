@@ -1,3 +1,5 @@
+import { isNotNumber } from "./utils.ts"
+
 interface Data {
   periodLength: number,
   trainingDays: number,
@@ -43,5 +45,12 @@ const calculateExercise = (dayHours: number[], target: number)  => {
   }
 }
 
-const result = calculateExercise([3, 0, 2, 4.5, 0, 3, 1], 2)
-console.log(result)
+const hours: number[] = process.argv.slice(3).map(Number)
+const target: number = Number(process.argv[2])
+
+if(hours.map(a => isNotNumber(a)).every(b => b === false)) {
+  const result = calculateExercise(hours, target)
+  console.log(result)
+} else {
+  console.error('All arguments must be Numbers.')
+}

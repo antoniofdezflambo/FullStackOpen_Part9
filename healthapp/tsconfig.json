@@ -1,6 +1,11 @@
 {
   "compilerOptions":{
     "noImplicitAny": true,
-    "noEmit": true
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "commonjs",
+    "strict": true,
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
   }
 }
