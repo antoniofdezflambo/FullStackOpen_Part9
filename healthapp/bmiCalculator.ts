@@ -1,6 +1,6 @@
 import { isNotNumber } from './utils.ts';
 
-const calculateBmi = (height: number, weight: number) : String => {
+export const calculateBmi = (height: number, weight: number) : String => {
   const bmi = weight/((height/100)**2)
   let range = ''
 
@@ -24,10 +24,12 @@ const calculateBmi = (height: number, weight: number) : String => {
   return range
 }
 
-const a: number = Number(process.argv[2])
-const b: number = Number(process.argv[3])
+if (process.argv[1] === import.meta.filename) {
+    const a: number = Number(process.argv[2])
+    const b: number = Number(process.argv[3])
 
-if(isNotNumber(a) || isNotNumber(b))
-  console.error('Both 2 arguments must be Numbers.')
-else
-  console.log(calculateBmi(a, b))
+    if(isNotNumber(a) || isNotNumber(b))
+        console.error('Both 2 arguments must be Numbers.')
+    else
+        console.log(calculateBmi(a, b))
+}
