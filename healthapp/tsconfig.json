@@ -3,9 +3,14 @@
     "noImplicitAny": true,
     "noEmit": true,
     "target": "ES2022",
-    "module": "commonjs",
+    "module": "nodenext",
     "strict": true,
     "types": ["node"],
     "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
   }
 }

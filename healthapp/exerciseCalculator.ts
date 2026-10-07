@@ -1,15 +1,5 @@
 import { isNotNumber } from "./utils.ts"
 
-interface Data {
-  periodLength: number,
-  trainingDays: number,
-  success: boolean,
-  rating: number,
-  ratingDescription: string,
-  target: number,
-  average: number  
-}
-
 const calculateExercise = (dayHours: number[], target: number)  => {
   const periodLength = dayHours.length
   const trainingDays = dayHours.filter(a => a !== 0).length
