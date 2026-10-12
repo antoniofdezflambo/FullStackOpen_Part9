@@ -1,6 +1,6 @@
 import { isNotNumber } from "./utils.ts"
 
-const calculateExercise = (dayHours: number[], target: number)  => {
+export const calculateExercise = (dayHours: number[], target: number)  => {
   const periodLength = dayHours.length
   const trainingDays = dayHours.filter(a => a !== 0).length
   const average = periodLength > 0 ? dayHours.reduce((a, b) => a + b, 0) / periodLength : 0
@@ -35,12 +35,14 @@ const calculateExercise = (dayHours: number[], target: number)  => {
   }
 }
 
-const hours: number[] = process.argv.slice(3).map(Number)
-const target: number = Number(process.argv[2])
+if (process.argv[1] === import.meta.filename) {
+  const hours: number[] = process.argv.slice(3).map(Number)
+  const target: number = Number(process.argv[2])
 
-if(hours.map(a => isNotNumber(a)).every(b => b === false)) {
-  const result = calculateExercise(hours, target)
-  console.log(result)
-} else {
-  console.error('All arguments must be Numbers.')
+  if(hours.map(a => isNotNumber(a)).every(b => b === false)) {
+    const result = calculateExercise(hours, target)
+    console.log(result)
+  } else {
+    console.error('All arguments must be Numbers.')
+  }
 }
