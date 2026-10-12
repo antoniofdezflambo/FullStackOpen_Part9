@@ -12,25 +12,28 @@ app.get('/hello', (_req, res) => {
 })
 
 app.get('/bmi', (req, res) => {
-  const params = req.query
+  const { weight, height } = req.query
   
-  const weight = Number(params.weight)
-  const height = Number(params.height)
-
-  if(isNotNumber(weight) || isNotNumber(height)) {
-    res.json('malformatted parameters')
-    return
+  if(!weight || !height || isNotNumber(weight) || isNotNumber(height)) {
+    return res.status(400).json({ error : 'malformatted parameters' })
   }
 
-  const bmi = calculateBmi(height, weight)
+  const weightNum = Number(weight)
+  const heightNum = Number(height)
+
+  if(weightNum <= 0 || heightNum <= 0) {
+    return res.status(400).json({ error : 'malformatted parameters' })
+  }
+
+  const bmi = calculateBmi(heightNum, weightNum)
 
   const result = {
-    weight : weight,
-    height : height,
+    weight : weightNum,
+    height : heightNum,
     bmi: bmi,
   }
 
-  res.json(result)
+  return res.json(result)
 })
 
 app.post('/exercises', (req, res) => {
