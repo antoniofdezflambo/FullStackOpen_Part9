@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import express, { type Response } from 'express';
 import patientsService from '../services/patientsService.ts';
 import type { NonSensitivePatient } from '../../types.ts';
+import parseNewPatient from '../../utils.ts';
 
 const router = express.Router();
 
@@ -22,17 +21,19 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { name, dateOfBirth, ssn, gender, occupation } = req.body;
+  try {
+    const newPatient = parseNewPatient(req.body);
+    const addedPatient = patientsService.addPatient(newPatient);
+    res.json(addedPatient);
+  } catch (error: unknown) {
+    let errorMessage = 'Something went wrong.';
+    
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + errorMessage;
+    }
 
-  const addedPatient = patientsService.addPatient({
-    name,
-    dateOfBirth,
-    ssn,
-    gender,
-    occupation
-  });
-
-  res.json(addedPatient);
+    res.status(400).send(errorMessage);
+  }
 });
 
 export default router;
